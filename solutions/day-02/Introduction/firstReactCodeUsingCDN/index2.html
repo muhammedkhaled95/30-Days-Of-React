@@ -1,0 +1,172 @@
+<!-- index2.html is a modification to index.html when we use internal styling instead of inline styling -->
+<!--
+In this introduction to react library for building reusable UI components,
+we are going to use react library and babel.js library using CDN links to be able to:
+1-use react and reactDOM methods from react library
+2-apply babel.js to our JSX (react) code to transpile it to vanilla (pure) javascript to be able to render
+it in the browser using index.html file
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>First React App</title>
+  <style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        line-height: 1.5;
+        font-family: 'Montserrat';
+        font-weight: 300;
+        color: black;
+      }
+
+      .root {
+        min-height: 100%;
+        position: relative;
+      }
+
+      .header-wrapper,
+      .main-wrapper,
+      .footer-wrapper {
+        width: 100%;
+        margin: auto;
+      }
+
+      .header-wrapper,
+      .main-wrapper {
+        padding: 10px;
+        margin: 2px auto;
+      }
+
+      h1 {
+        font-size: 70px;
+        font-weight: 300;
+      }
+
+      h2,
+      h3 {
+        font-weight: 300;
+      }
+
+      header {
+        background-color: #61dbfb;
+        padding: 10px;
+      }
+
+      main {
+        padding: 10px;
+        padding-bottom: 60px;
+        /* Height of the footer */
+      }
+
+      ul {
+        margin-left: 15px;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        /* Height of the footer */
+        background: #6cf;
+      }
+
+      .footer-wrapper {
+        font-weight: 400;
+        text-align: center;
+        line-height: 60px;
+      }
+
+      .mainPara{
+        font-size: 40px;
+      }
+  </style>
+</head>
+
+<body>
+  <!-- ********************************************************************************************************************
+  this is the root element of our web page which will be the container that all of our react components (UI)
+  will be rendered inside of it using the render() method offered by ReactDOM library -->
+  <div class="root"></div>
+  <!--***********************************************************************************************************************
+  these 2 CDN links provide to us the react and reactDOM libraries that we need to develop react components-->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!--**********************************************************************************************************************
+  this CDN is babel.js library that we need to transpile our JSX code to plain javascript for the browser JS engine
+  to understand and as you see here, it's coming before the main script, since we need the browser to see babel.js
+  before going to the main script to decode it to plain javascript using babel.js -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!--***********************************************************************************************************************
+  this is the main script where all of our react code will be, and as you can see, it's of type text/babel, which means
+  we can write plain JS, JSX, or react code inside of it since it will eventually be transpiled to pure JS anyways-->
+  <script type="text/babel">
+    //console.log(React); //this is used fot testing that react is linked successfully to our web page, it should return an object containing all of react method and props
+    /*first of all we need to get the roor element which will be the only direct access to the DOM in our react app*/
+    const rootElement = document.querySelector(".root");
+    /*writing our first JSX element*/
+    const jsxElement = <h1>First React App</h1>
+    /*Note that to write more than 1 HTML element we need to wrap all of them in parent element since
+    JSX needs only one element to render at a time*/
+
+    const headerElement = (<header>
+      <div className = "header-wrapper">
+      <h1>FirstReactApp</h1>
+      <h2>using CDNs</h2>
+      <h3>the script is in the same HTML file</h3>
+      <p>this is the first step to the world of react.</p>
+      </div>
+    </header>)
+    /*let's create the main JSX element of our web page*/
+    const mainElement = (
+     <main>
+      <p className = "mainPara">Prerequisite to get started react.js:</p>
+       <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+      </ul>
+    </main>
+     )
+/*footer JSX element*/
+    const footer = (
+      <footer className = "footer-wrapper">
+       <p>Copyright &copy;2021</p>
+      </footer>
+    )
+
+    /*there's a small problem here when we want to render our 3 JSX elements since our render() methods
+    takes only one parameter(element)*/
+    /*There are 2 solutions
+    1-putting all of the 3 elements in an array, and use it as our argument for the first parameter of render() methods
+    2-Wrap all of the 3 JSX elements inside one parent JSX element and use the parent JSX element in the render() method*/
+    /*wrapping all of them*/
+    const app = (
+      <div className = "app">
+        {/*notice here that we are adding JSX elements(which is JS code) inside HTML element, to be able to do that
+        we have to wrap our JSX elements in curly braces {} to make it valid JS code inside HTML*/}
+        {headerElement}
+        {mainElement}
+        {footer}
+      </div>
+    )
+    /*to render our JSX code inside the html root element, we use render() method for ReactDOM library like the following*/
+    ReactDOM.render(app,rootElement);
+  </script>
+  <!--********************************************************************************************************************-->
+</body>
+
+</html>
